@@ -1,2 +1,18 @@
-# react-interview-preparation
-React interview preparation repository containing coding questions, solutions, explanations, and mini projects.
+# React Interview Preparation
+
+A collection of React interview questions and solutions.
+
+## Topics
+
+- useState
+- useEffect
+- useRef
+- Context API
+- Pagination
+- Search Filter
+- Todo App
+- Shopping Cart
+
+## Goal
+
+Preparing for Frontend and MERN Stack interviews.
