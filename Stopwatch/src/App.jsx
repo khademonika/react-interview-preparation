@@ -1,58 +1,68 @@
 import React, { useRef, useState } from "react";
 
-const App = () => {
-  // const [seconds,setSeconds]= useState(0)
-  const timeRef = useRef()
-  const handleStart = ()=>{
-  timeRef.current = 0
+const StopTimer = () => {
+  const [second, setSecond] = useState(0)
 
-setInterval(() => {
-  timeRef.current+=1
-console.log(timeRef.current);
 
-}, 1000);
+  const timeRef = useRef(0)
+
+
+  function startTimer() {
+    if (timeRef.current) return
+    timeRef.current = setInterval(() => {
+      setSecond(second => second + 1)
+    }, 1000);
+  }
+  function stopTimer() {
+    clearInterval(timeRef.current)
+      timeRef.current = null
+  setSecond(0)
 
   }
- const handleStop=()=>{
-clearInterval(timeRef.current )
- }
- const  handleResume=()=>{
+  function pauseTimer() {
+    clearInterval(timeRef.current)
+    timeRef.current = null
 
- }
+  }
+    const minute = Math.floor((second % 3600) / 60)
+  const hour = Math.floor(second / 3600)
+  const seconds = second % 60
+
+
   return (
     <div className="timer-container">
       <h1 className="timer-heading">Stop Timer</h1>
 
       <div className="timer-display">
         <div className="time-box">
-          <span>00</span>
+          <span>{hour.toString().padStart(2, "0")}</span>
           <p>Hours</p>
         </div>
 
         <div className="separator">:</div>
 
         <div className="time-box">
-          <span>00</span>
+          <span>{minute.toString().padStart(2, "0")}</span>
+
           <p>Minutes</p>
         </div>
 
         <div className="separator">:</div>
 
         <div className="time-box">
-          <span ref={timeRef}>{timeRef.current}</span>
+          <span>{seconds.toString().padStart(2, "0")}</span>
+
           <p>Seconds</p>
         </div>
       </div>
 
       <div className="button-group">
-        <button className="btn" onClick={handleStart}>Start</button>
-        <button className="btn" onClick={handleStop}>Stop</button>
-        <button className="btn" onClick={handleResume}>Resume</button>
+        <button className="btn" onClick={startTimer}>Start</button>
+        <button className="btn" onClick={stopTimer}>Stop</button>
+        <button className="btn" onClick={pauseTimer}>pause</button>
       </div>
     </div>
   );
 };
 
-export default App;
-
-// need to learn the useref and how to create a stop timer from it 
+export default StopTimer;
