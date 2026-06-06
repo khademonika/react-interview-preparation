@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
+import { useEffect } from 'react';
 
 const App = () => {
   const [type,setType] = useState("")
+  const [debounceQuery,setDebounceQuery] = useState("")
+  const [result, setResult] = useState([])
+
 const users = [
   "Monika Khade",
   "Rahul Sharma",
@@ -25,16 +29,39 @@ const handleOnChange = (e)=>{
   setType(e.target.value)
   
 }
+//Adding debounce query
+useEffect(()=>{
+  const intervalId = setTimeout(() => {
+    setDebounceQuery(type)
+  }, 500);
+  return ()=>{
+    clearTimeout(intervalId)
+  }
+},[type])
+// useEffect(()=>{
+//   if(debounceQuery){
+//   const results =  users.filter((val)=>
+//         val.toLowerCase().includes(debounceQuery.toLowerCase()))
+//   console.log(results);
+//   setResult(results)
+//   }
+//   if(type.length == 0){
+//     setResult([])
+//   }
+  
+// },[debounceQuery])
+const filteredUser = users.filter((val)=>val.toLowerCase().includes(debounceQuery.toLowerCase()))
   return (
     <div>
-      <input type="text" value={type} onChange={
-        handleOnChange}  placeholder='Search here' />
+      <input type="text" value={type} onChange={handleOnChange}  placeholder='Search here' />
      <div>
-      {users.filter((val)=>
-        val.toLowerCase().includes(type.toLowerCase())
-      ).map((vl,i)=>{
-        return <p>{vl}</p>
-       })}
+{
+  debounceQuery? filteredUser.map((val,i)=>{
+   return <p key={i}>{val}</p>
+  }): users.map((val,i)=>{
+  return  <p key={i}>{val}</p>
+  })
+}
       <br />
      </div>
     </div>
