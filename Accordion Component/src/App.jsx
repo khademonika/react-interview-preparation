@@ -1,20 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import faqs from './data'
 const App = () => {
+const [open,setOpen] = useState(0)
 
-  const handleDiv = ()=>{
-    
+  const handleDiv = (index)=>{
+    setOpen(index)
   }
   return (
     <div>
  {faqs.map((element, index)=>{
   return <div>
-    <p >{element.question}</p>
-    <p style={{display:'none'}} onClick={handleDiv}>{element.answer}</p>
+    <p   onClick={()=>handleDiv(index)}>{element.question}</p>
+    {open ==index?<p >{element.answer}</p>:""}
   </div>
  })}
  <div>
-
  </div>
     </div>
   )
