@@ -6,10 +6,10 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-assets
-public
+
 node_modules
 dist
+README.md
 dist-ssr
 *.local
 
@@ -23,5 +23,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-Chat-App
-ToDo
